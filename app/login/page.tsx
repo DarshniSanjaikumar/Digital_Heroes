@@ -357,7 +357,7 @@ export default function Login() {
   const [hovered,   setHovered]   = useState(false)
   const cx = useRef(0); const cy = useRef(0)
   const tx = useRef(0); const ty = useRef(0)
-  const animFrame = useRef<number>()
+  const animFrame = useRef<number | null>(null)
 
   useEffect(() => {
     const move = (e: MouseEvent) => { tx.current = e.clientX; ty.current = e.clientY }

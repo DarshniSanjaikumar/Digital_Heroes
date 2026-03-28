@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import ScoreSection from '@/components/ScoreSection'
@@ -350,7 +350,7 @@ const NAV_ITEMS: {
   key: SectionKey
   label: string
   desc: string
-  icon: () => JSX.Element
+  icon: () => React.ReactNode
   eyebrow: string
   title: string
   titleEm: string
@@ -508,7 +508,7 @@ export default function DashboardClient({ email }: { email: string }) {
   const [hovered,   setHovered]   = useState(false)
   const cx = useRef(0); const cy = useRef(0)
   const tx = useRef(0); const ty = useRef(0)
-  const animFrame = useRef<number>()
+  const animFrame = useRef<number | null>(null)
 
   useEffect(() => {
     const move = (e: MouseEvent) => { tx.current = e.clientX; ty.current = e.clientY }
@@ -546,12 +546,10 @@ export default function DashboardClient({ email }: { email: string }) {
   const current = NAV_ITEMS.find(n => n.key === active)!
 const safeEmail = email || ''
 
-const displayName = safeEmail
-  ? safeEmail
-      .split('@')[0]
-      .replace(/[._-]/g, ' ')
-      .replace(/\b\w/g, c => c.toUpperCase())
-  : 'User'
+const displayName =
+  email?.split('@')[0]
+    ?.replace(/[._-]/g, ' ')
+    ?.replace(/\b\w/g, c => c.toUpperCase()) || 'User'
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: GLOBAL_CSS }} />

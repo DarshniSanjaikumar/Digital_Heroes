@@ -515,7 +515,7 @@ export default function Home() {
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 })
   const [hovered, setHovered] = useState(false)
   const cursorRef = useRef<HTMLDivElement>(null)
-  const animFrame = useRef<number>()
+  const animFrame = useRef<number | null>(null)
   const cx = useRef(0); const cy = useRef(0)
   const tx = useRef(0); const ty = useRef(0)
 
